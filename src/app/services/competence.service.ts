@@ -1,11 +1,8 @@
 import { Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Competence } from '../models/competence.model';
-import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CompetenceService {
-  private http = HttpClient;
   private competences = signal<Competence[]>([]);
   
   constructor() {
@@ -16,9 +13,9 @@ export class CompetenceService {
   
   private async loadCompetences(): Promise<void> {
     try {
-      const response = await fetch('assets/data/competences.json');
-      const data = await response.json();
-      this.competences.set(data.competences);
+      // Import dynamique du fichier JSON
+      const competencesModule = await import('../../assets/data/competences.json');
+      this.competences.set(competencesModule.default.competences as Competence[]);
     } catch (error) {
       console.error('Erreur lors du chargement des compétences:', error);
     }

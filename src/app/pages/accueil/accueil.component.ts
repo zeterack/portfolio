@@ -10,15 +10,14 @@ import { Component } from '@angular/core';
           <div class="hero-text">
             <h1 class="hero-title">
               Bonjour, je suis
-              <span class="highlight">Votre Nom</span>
+              <span class="highlight">Lucas DANIEL</span>
             </h1>
             <p class="hero-subtitle">
-              Développeur Full Stack en alternance
+              Développeur Full Stack spécialisée IA en alternance
             </p>
             <p class="hero-description">
-              Passionné par le développement web moderne, je crée des applications performantes 
-              et accessibles en utilisant les dernières technologies. Actuellement en fin d'alternance, 
-              je recherche de nouveaux défis pour continuer à développer mes compétences.
+              Passionné par l'intelligence artificielle et le développement informatique, je crée des applications performantes 
+              et accessibles en utilisant les dernières technologies.
             </p>
             <div class="hero-actions">
               <a href="/competences" class="btn btn--primary">
@@ -28,18 +27,11 @@ import { Component } from '@angular/core';
                 Voir mes projets
               </a>
             </div>
-            <div class="hero-links">
-              <a href="#" class="link-item" aria-label="Télécharger CV">
-                📄 Télécharger mon CV
-              </a>
-              <a href="#" class="link-item" aria-label="Me contacter">
-                📧 Me contacter
-              </a>
-            </div>
           </div>
           <div class="hero-image">
             <div class="image-placeholder">
               <span>Photo de profil</span>
+
             </div>
           </div>
         </div>
@@ -49,15 +41,15 @@ import { Component } from '@angular/core';
       <section class="stats">
         <div class="stats-container">
           <div class="stat-item">
-            <div class="stat-number">10+</div>
+            <div class="stat-number">30+</div>
             <div class="stat-label">Compétences techniques</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">5+</div>
+            <div class="stat-number">10+</div>
             <div class="stat-label">Projets réalisés</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">2</div>
+            <div class="stat-number">1</div>
             <div class="stat-label">Années d'alternance</div>
           </div>
         </div>

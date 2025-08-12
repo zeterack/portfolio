@@ -13,9 +13,9 @@ export class ProjetService {
   
   private async loadProjets(): Promise<void> {
     try {
-      const response = await fetch('assets/data/projets.json');
-      const data = await response.json();
-      this.projets.set(data.projets);
+      // Import dynamique du fichier JSON
+      const projetsModule = await import('../../assets/data/projets.json');
+      this.projets.set(projetsModule.default.projets as Projet[]);
     } catch (error) {
       console.error('Erreur lors du chargement des projets:', error);
     }

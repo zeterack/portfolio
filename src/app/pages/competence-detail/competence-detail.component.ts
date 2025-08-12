@@ -54,29 +54,7 @@ import { RouterModule } from '@angular/router';
             </h2>
             <div class="description-content">
               <p class="main-description">{{ competence()!.description }}</p>
-              
-              <!-- Informations techniques pour les compétences techniques -->
-              <div *ngIf="competence()!.type === 'technique'" class="technical-info">
-                <h3 class="subsection-title">Domaines d'application</h3>
-                <ul class="info-list">
-                  <li *ngFor="let domain of getTechnicalDomains(competence()!.nom)">{{ domain }}</li>
-                </ul>
-                
-                <h3 class="subsection-title">Technologies connexes</h3>
-                <div class="related-tech">
-                  <span *ngFor="let tech of getRelatedTechnologies(competence()!.nom)" class="tech-tag">
-                    {{ tech }}
-                  </span>
-                </div>
-              </div>
 
-              <!-- Exemples d'application pour les soft skills -->
-              <div *ngIf="competence()!.type === 'soft_skills'" class="soft-skill-info">
-                <h3 class="subsection-title">Exemples d'application</h3>
-                <ul class="info-list">
-                  <li *ngFor="let example of getSoftSkillExamples(competence()!.nom)">{{ example }}</li>
-                </ul>
-              </div>
             </div>
           </div>
         </section>
@@ -145,18 +123,6 @@ import { RouterModule } from '@angular/router';
                 </ul>
               </div>
 
-              <!-- Ressources recommandées -->
-              <div class="resources">
-                <h3 class="subsection-title">Ressources pour progresser</h3>
-                <div class="resources-grid">
-                  <div *ngFor="let resource of getRecommendedResources(competence()!.nom)" 
-                       class="resource-card">
-                    <div class="resource-type">{{ resource.type }}</div>
-                    <h4 class="resource-title">{{ resource.title }}</h4>
-                    <p class="resource-description">{{ resource.description }}</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -180,20 +146,6 @@ import { RouterModule } from '@angular/router';
                 </div>
               </div>
 
-              <!-- Preuves et réalisations -->
-              <div class="achievements">
-                <h3 class="subsection-title">Preuves et réalisations</h3>
-                <div class="achievements-grid">
-                  <div *ngFor="let achievement of getAchievements(competence()!.nom)" 
-                       class="achievement-card">
-                    <div class="achievement-icon">{{ achievement.icon }}</div>
-                    <div class="achievement-content">
-                      <h4 class="achievement-title">{{ achievement.title }}</h4>
-                      <p class="achievement-description">{{ achievement.description }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -864,15 +816,6 @@ export class CompetenceDetailComponent implements OnInit {
       'SQL': ['Optimisation avancée de requêtes', 'Administration de bases de données', 'NoSQL et bases distribuées']
     };
     return goals[competenceName] || ['Approfondissement des concepts avancés', 'Veille technologique', 'Partage de connaissances'];
-  }
-
-  getRecommendedResources(competenceName: string): { type: string; title: string; description: string }[] {
-    return [
-      { type: 'Documentation', title: 'Documentation officielle', description: 'Guide de référence et meilleures pratiques' },
-      { type: 'Formation', title: 'Cours en ligne spécialisés', description: 'Formations avancées sur des plateformes reconnues' },
-      { type: 'Communauté', title: 'Forums et communautés', description: 'Échanges avec des experts et retours d\'expérience' },
-      { type: 'Pratique', title: 'Projets open source', description: 'Contribution à des projets pour gagner en expérience' }
-    ];
   }
 
   getSelfEvaluation(competenceName: string): string {
