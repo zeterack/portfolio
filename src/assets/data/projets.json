@@ -1,0 +1,45 @@
+{
+  "projets": [
+    {
+      "id": "portfolio",
+      "titre": "Portfolio Personnel",
+      "contexte": "Personnel",
+      "date_realisation": "2025-08",
+      "image": "assets/images/portfolio.png",
+      "description_courte": "Site web portfolio responsive présentant mes compétences et projets, développé avec Angular",
+      "description_complete": "Création d'un portfolio web moderne et interactif pour présenter mon parcours, mes compétences et mes réalisations. Le site comprend un système de navigation fluide, des filtres dynamiques pour les compétences et projets, et une interface responsive optimisée pour tous les appareils.",
+      "objectifs": [
+        "Créer une vitrine professionnelle de mes compétences",
+        "Démontrer ma maîtrise d'Angular et TypeScript",
+        "Mettre en place une architecture modulaire et maintenable"
+      ],
+      "technologies": ["angular", "typescript", "css", "git"],
+      "soft_skills": ["resolution-problemes", "gestion-projet"],
+      "defis_techniques": [
+        "Mise en place d'un système de routage dynamique",
+        "Création de filtres interactifs pour les données",
+        "Optimisation des performances et du SEO",
+        "Implémentation d'animations CSS fluides"
+      ],
+      "solutions_apportees": [
+        "Utilisation d'Angular Router pour une navigation SPA",
+        "Création de pipes personnalisés pour le filtrage",
+        "Lazy loading des modules pour améliorer les performances",
+        "CSS animations et Angular Animations API"
+      ],
+      "resultats": [
+        "Site web moderne et professionnel",
+        "Interface intuitive avec filtres fonctionnels",
+        "Performance optimisée (score Lighthouse > 90)",
+        "Design responsive compatible tous appareils"
+      ],
+      "demo_url": "https://monportfolio.dev",
+      "github_url": "https://github.com/monusername/portfolio",
+      "screenshots": [
+        "assets/images/portfolio-home.png",
+        "assets/images/portfolio-competences.png",
+        "assets/images/portfolio-projets.png"
+      ]
+    }
+  ]
+}
