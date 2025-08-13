@@ -179,6 +179,55 @@
         "assets/images/rag-innolabs-kubernetes.png",
         "assets/images/rag-innolabs-monitoring.png"
       ]
+    },
+    {
+      "id": "moteur-inference",
+      "titre": "Moteur d'Inférence IA",
+      "contexte": "Personnel",
+      "date_realisation": "2022-05",
+      "image": "assets/images/missing.jpg",
+      "description_courte": "Développement from scratch d'un moteur d'inférence en Python pour comprendre le fonctionnement interne des modèles d'IA",
+      "description_complete": "Projet personnel de développement d'un moteur d'inférence complet en Python pour approfondir ma compréhension des algorithmes d'intelligence artificielle. Le projet couvre l'implémentation des opérations matricielles, la propagation avant/arrière, les fonctions d'activation, et l'optimisation des performances. Développé en préparation du grand oral pour démontrer une maîtrise technique approfondie de l'IA.",
+      "objectifs": [
+        "Comprendre en profondeur le fonctionnement interne des réseaux de neurones",
+        "Implémenter from scratch les algorithmes fondamentaux de l'IA",
+        "Optimiser les performances avec NumPy et les calculs vectorisés",
+        "Créer un framework modulaire et extensible",
+        "Préparer une présentation technique pour le grand oral"
+      ],
+      "technologies": ["python"],
+      "soft_skills": ["realiser", "optimiser"],
+      "defis_techniques": [
+        "Implémentation efficace des opérations matricielles sans frameworks IA",
+        "Gestion de la rétropropagation et calcul des gradients",
+        "Optimisation des performances avec NumPy et vectorisation",
+        "Architecture modulaire pour différents types de couches",
+        "Gestion de la mémoire pour de gros modèles",
+        "Validation des résultats contre des frameworks établis"
+      ],
+      "solutions_apportees": [
+        "Architecture orientée objet avec classes Layer, Network, Optimizer",
+        "Implémentation vectorisée des opérations avec NumPy",
+        "Système de graphe computationnel pour la rétropropagation",
+        "Support de multiples fonctions d'activation (ReLU, Sigmoid, Tanh)",
+        "Algorithmes d'optimisation (SGD, Adam, RMSprop)",
+        "Tests unitaires pour valider la précision des calculs"
+      ],
+      "resultats": [
+        "Moteur d'inférence fonctionnel capable d'entraîner des réseaux de neurones",
+        "Performance optimisée grâce à la vectorisation NumPy",
+        "Code modulaire et bien documenté pour la présentation",
+        "Validation réussie sur des datasets classiques (MNIST, Iris)",
+        "Compréhension approfondie des mécanismes internes de l'IA",
+        "Projet de référence pour le grand oral"
+      ],
+      "demo_url": "",
+      "github_url": "",
+      "screenshots": [
+        "assets/images/moteur-inference-architecture.png",
+        "assets/images/moteur-inference-training.png",
+        "assets/images/moteur-inference-results.png"
+      ]
     }
   ]
 }

@@ -152,7 +152,7 @@
       "niveau": "expert",
       "description": "Langage de programmation polyvalent et puissant, particulièrement adapté pour l'IA, l'analyse de données et le développement d'applications",
       "contexte_apprentissage": "Appris dès la première année à l'IUT, approfondi avec l'IA et les frameworks web comme Streamlit",
-      "projets_lies": ["demo-coter", "rag-innolabs"],
+      "projets_lies": ["demo-coter", "rag-innolabs","moteur-inference"],
       "certifications": [],
       "formations": ["Cours IUT - Programmation Python", "Projets IA et analyse de données"]
     },
