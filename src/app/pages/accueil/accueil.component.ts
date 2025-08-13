@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { CompetenceService } from '../../services/competence.service';
+import { ProjetService } from '../../services/projet.service';
 
 @Component({
   selector: 'app-accueil',
@@ -41,16 +43,16 @@ import { Component } from '@angular/core';
       <section class="stats">
         <div class="stats-container">
           <div class="stat-item">
-            <div class="stat-number">30+</div>
+            <div class="stat-number">{{ competencesCount() }}</div>
             <div class="stat-label">Compétences techniques</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">10+</div>
+            <div class="stat-number">{{ projetsCount() }}</div>
             <div class="stat-label">Projets réalisés</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">1</div>
-            <div class="stat-label">Années d'alternance</div>
+            <div class="stat-label">Année d'alternance</div>
           </div>
         </div>
       </section>
@@ -331,4 +333,27 @@ import { Component } from '@angular/core';
     }
   `]
 })
-export class AccueilComponent {}
+export class AccueilComponent {
+  private competenceService = inject(CompetenceService);
+  private projetService = inject(ProjetService);
+
+  // Signaux calculés pour les statistiques
+  competencesCount = computed(() => this.competenceService.getCompetences().length);
+  projetsCount = computed(() => this.projetService.getProjets().length);
+  
+  // Calcul des années d'alternance (depuis septembre 2024)
+  anneesAlternance = computed(() => {
+    const startDate = new Date('2024-09-01');
+    const currentDate = new Date();
+    const diffTime = Math.abs(currentDate.getTime() - startDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    // Si c'est moins d'un an, retourner "1ère année" sinon calculer l'année
+    if (diffDays < 365) {
+      return "1ère";
+    } else {
+      const year = Math.floor(diffDays / 365) + 1;
+      return year === 2 ? "2ème" : year === 3 ? "3ème" : year === 4 ? "4ème" : year.toString();
+    }
+  });
+}

@@ -90,7 +90,7 @@
       "id": "demo-coter",
       "titre": "Démo COTER",
       "contexte": "Entreprise",
-      "date_realisation": "2024-11",
+      "date_realisation": "2024-06",
       "image": "assets/images/demo-coter.png",
       "description_courte": "Démonstration de la technologie RAG pour les demandes en mairie, présentée au COTER 2024",
       "description_complete": "Développement d'une démonstration innovante utilisant la technologie RAG (Retrieval-Augmented Generation) dans un contexte de demandes administratives en mairie. Cette démo a été présentée lors du COTER 2024 pour illustrer les possibilités de l'IA conversationnelle dans l'administration publique.",

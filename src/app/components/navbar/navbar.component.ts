@@ -127,12 +127,12 @@ import { CommonModule } from '@angular/common';
     }
 
     .nav-link:hover {
-      color: var(--orange-primary);
+      color: white;
       background: var(--orange-light);
     }
 
     .nav-link--active {
-      color: var(--orange-primary);
+      color: white;
       background: var(--orange-light);
     }
 

@@ -331,12 +331,12 @@ type FilterLieu = 'tous' | 'IUT' | 'Entreprise' | 'Autre';
 
     .tag--type {
       background: var(--violet-light);
-      color: var(--violet-primary);
+      color: white;
     }
 
     .tag--lieu {
       background: var(--orange-light);
-      color: var(--orange-primary);
+      color: white;
     }
 
     .projets-count {
