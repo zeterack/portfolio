@@ -441,7 +441,7 @@ import { RouterLink } from '@angular/router';
           </div>
         </section>
 
-        <!-- Témoignages -->
+        <!-- Témoignages
         <section class="temoignages-section">
           <div class="section-card">
             <h2 class="section-title">
@@ -480,7 +480,7 @@ import { RouterLink } from '@angular/router';
               </div>
             </div>
           </div>
-        </section>
+        </section> -->
       </div>
     </div>
   `,

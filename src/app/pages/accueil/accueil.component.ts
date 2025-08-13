@@ -31,10 +31,7 @@ import { ProjetService } from '../../services/projet.service';
             </div>
           </div>
           <div class="hero-image">
-            <div class="image-placeholder">
-              <span>Photo de profil</span>
-
-            </div>
+              <img src="assets/images/lucas.jpeg" alt="Photo de Lucas Daniel" class="image-placeholder"/>
           </div>
         </div>
       </section>

@@ -24,8 +24,8 @@ import { FormsModule } from '@angular/forms';
                 <span class="contact-icon">📧</span>
                 <div class="contact-content">
                   <span class="contact-label">Email</span>
-                  <a href="mailto:votre.email&#64;exemple.com" class="contact-value">
-                    votre.email&#64;exemple.com
+                  <a href="mailto:zeterack&#64;gmail.com" class="contact-value">
+                    zeterack&#64;gmail.com
                   </a>
                 </div>
               </div>
@@ -34,8 +34,8 @@ import { FormsModule } from '@angular/forms';
                 <span class="contact-icon">📱</span>
                 <div class="contact-content">
                   <span class="contact-label">Téléphone</span>
-                  <a href="tel:+33123456789" class="contact-value">
-                    +33 1 23 45 67 89
+                  <a href="tel:+33695550023" class="contact-value">
+                    06 95 55 00 23
                   </a>
                 </div>
               </div>
@@ -44,10 +44,10 @@ import { FormsModule } from '@angular/forms';
                 <span class="contact-icon">💼</span>
                 <div class="contact-content">
                   <span class="contact-label">LinkedIn</span>
-                  <a href="https://linkedin.com/in/votre-profil" 
+                  <a href="https://www.linkedin.com/in/lucas-daniel-19a175251/" 
                      target="_blank" 
                      class="contact-value">
-                    linkedin.com/in/votre-profil
+                    linkedin.com/in/lucas-daniel-19a175251
                   </a>
                 </div>
               </div>
@@ -56,10 +56,10 @@ import { FormsModule } from '@angular/forms';
                 <span class="contact-icon">📂</span>
                 <div class="contact-content">
                   <span class="contact-label">GitHub</span>
-                  <a href="https://github.com/votre-profil" 
+                  <a href="https://github.com/zeterack" 
                      target="_blank" 
                      class="contact-value">
-                    github.com/votre-profil
+                    github.com/zeterack
                   </a>
                 </div>
               </div>
@@ -68,7 +68,7 @@ import { FormsModule } from '@angular/forms';
                 <span class="contact-icon">📍</span>
                 <div class="contact-content">
                   <span class="contact-label">Localisation</span>
-                  <span class="contact-value">Votre ville, France</span>
+                  <span class="contact-value">Lyon, Rhône, France</span>
                 </div>
               </div>
             </div>
