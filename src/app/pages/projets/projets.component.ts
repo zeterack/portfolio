@@ -1,5 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ProjetService } from '../../services/projet.service';
+import { CompetenceService } from '../../services/competence.service';
 import { Projet } from '../../models/projet.model';
 import { RouterLink } from '@angular/router';
 
@@ -88,7 +89,9 @@ type FilterContexte = 'tous' | 'IUT' | 'Entreprise' | 'Personnel' | 'Autre';
                 
                 <div class="projet-technologies">
                   @for (tech of projet.technologies.slice(0, 4); track tech) {
-                    <span class="tech-badge">{{ formatTechnology(tech) }}</span>
+                    <span class="tech-badge" [title]="formatTechnology(tech)">
+                      <img [src]="getTechIcon(tech)" [alt]="formatTechnology(tech)" class="tech-icon">
+                    </span>
                   }
                   @if (projet.technologies.length > 4) {
                     <span class="tech-badge tech-badge--more">
@@ -356,17 +359,34 @@ type FilterContexte = 'tous' | 'IUT' | 'Entreprise' | 'Personnel' | 'Autre';
     }
 
     .tech-badge {
-      padding: 0.25rem 0.5rem;
-      background: var(--violet-light);
+      padding: 0.5rem;
+      background: var(--bg-secondary);
       color: var(--violet-primary);
-      border-radius: 0.25rem;
+      border-radius: 0.5rem;
       font-size: 0.75rem;
       font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border-color);
+    }
+
+    .tech-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .tech-icon {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
     }
 
     .tech-badge--more {
       background: var(--bg-secondary);
       color: var(--text-muted);
+      padding: 0.25rem 0.5rem;
     }
 
     .card-footer {
@@ -464,10 +484,12 @@ type FilterContexte = 'tous' | 'IUT' | 'Entreprise' | 'Personnel' | 'Autre';
 })
 export class ProjetsComponent {
   private projetService = inject(ProjetService);
+  private competenceService = inject(CompetenceService);
   
   selectedContexte = signal<FilterContexte>('tous');
   
   projets = this.projetService.getProjets;
+  competences = this.competenceService.getCompetences;
   
   filteredProjets = computed(() => {
     let filtered = this.projets();
@@ -484,16 +506,13 @@ export class ProjetsComponent {
   }
   
   formatTechnology(tech: string): string {
-    const techNames: Record<string, string> = {
-      'angular': 'Angular',
-      'typescript': 'TypeScript',
-      'css': 'CSS',
-      'git': 'Git',
-      'java': 'Java',
-      'spring-boot': 'Spring Boot',
-      'sql': 'SQL'
-    };
-    return techNames[tech] || tech;
+    const competence = this.competences().find(c => c.id === tech.toLowerCase());
+    return competence?.nom || tech;
+  }
+
+  getTechIcon(tech: string): string {
+    const competence = this.competences().find(c => c.id === tech.toLowerCase());
+    return competence?.icone || 'assets/icons/default.svg';
   }
   
   formatDate(dateStr: string): string {

@@ -1,6 +1,7 @@
 import { Component, signal, computed, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjetService } from '../../services/projet.service';
+import { CompetenceService } from '../../services/competence.service';
 import { Projet } from '../../models/projet.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -59,7 +60,7 @@ import { RouterModule } from '@angular/router';
             </h2>
             <div class="info-grid">
               <div class="info-item">
-                <h3 class="info-title">Durée du projet</h3>
+                <h3 class="info-title">Date de création</h3>
                 <p class="info-value">{{ projet()!.date_realisation }}</p>
               </div>
               <div class="info-item">
@@ -89,154 +90,18 @@ import { RouterModule } from '@angular/router';
               <div class="tech-category">
                 <h3 class="category-title">Technologies principales</h3>
                 <div class="tech-badges">
-                  <span *ngFor="let tech of projet()!.technologies" class="tech-badge primary">
-                    {{ tech }}
+                  <span *ngFor="let tech of projet()!.technologies" class="tech-badge" 
+                        [title]="formatTechnology(tech)"
+                        (click)="navigateToCompetenceDetail(tech)">
+                    <img [src]="getTechIcon(tech)" [alt]="formatTechnology(tech)" class="tech-icon">
                   </span>
                 </div>
               </div>
               
-              <div class="tech-category">
-                <h3 class="category-title">Outils et environnement</h3>
-                <div class="tech-badges">
-                  <span *ngFor="let tool of getTools(projet()!.technologies)" class="tech-badge secondary">
-                    {{ tool }}
-                  </span>
-                </div>
-              </div>
             </div>
           </div>
         </section>
-
-        <!-- Objectifs et défis -->
-        <section class="objectives-section">
-          <div class="section-card">
-            <h2 class="section-title">
-              <span class="title-icon">🎯</span>
-              Objectifs et défis relevés
-            </h2>
-            <div class="objectives-content">
-              
-              <!-- Objectifs -->
-              <div class="objectives-list">
-                <h3 class="subsection-title">Objectifs du projet</h3>
-                <ul class="objective-items">
-                  <li *ngFor="let objective of projet()!.objectifs">{{ objective }}</li>
-                </ul>
-              </div>
-
-              <!-- Défis techniques -->
-              <div class="challenges-list">
-                <h3 class="subsection-title">Défis techniques relevés</h3>
-                <div class="challenges-grid">
-                  <div *ngFor="let challenge of projet()!.defis_techniques; let i = index" class="challenge-card">
-                    <div class="challenge-icon">⚡</div>
-                    <div class="challenge-content">
-                      <h4 class="challenge-title">Défi technique #{{ i + 1 }}</h4>
-                      <p class="challenge-description">{{ challenge }}</p>
-                      <span class="challenge-solution">Solution : {{ projet()!.solutions_apportees[i] || 'En cours de résolution' }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Réalisations et fonctionnalités -->
-        <section class="features-section">
-          <div class="section-card">
-            <h2 class="section-title">
-              <span class="title-icon">✨</span>
-              Fonctionnalités développées
-            </h2>
-            <div class="features-content">
-              
-              <!-- Fonctionnalités principales -->
-              <div class="features-grid">
-                <div *ngFor="let feature of getFeatures(projet()!.titre)" class="feature-card">
-                  <div class="feature-icon">{{ feature.icon }}</div>
-                  <div class="feature-info">
-                    <h4 class="feature-title">{{ feature.title }}</h4>
-                    <p class="feature-description">{{ feature.description }}</p>
-                    <div class="feature-tech">
-                      <span *ngFor="let tech of feature.technologies" class="feature-tech-badge">
-                        {{ tech }}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Apprentissages et compétences -->
-        <section class="learning-section">
-          <div class="section-card">
-            <h2 class="section-title">
-              <span class="title-icon">📚</span>
-              Apprentissages et compétences développées
-            </h2>
-            <div class="learning-content">
-              
-              <!-- Compétences techniques -->
-              <div class="competences-developed">
-                <h3 class="subsection-title">Compétences techniques acquises</h3>
-                <div class="competence-tags">
-                  <span *ngFor="let competence of getCompetencesDeveloped(projet()!.technologies)" 
-                        class="competence-tag"
-                        (click)="navigateToCompetence(competence)">
-                    {{ competence }}
-                  </span>
-                </div>
-              </div>
-
-              <!-- Apprentissages personnels -->
-              <div class="personal-learning">
-                <h3 class="subsection-title">Apprentissages personnels</h3>
-                <ul class="learning-list">
-                  <li *ngFor="let learning of getPersonalLearnings(projet()!.contexte)">{{ learning }}</li>
-                </ul>
-              </div>
-
-              <!-- Points d'amélioration -->
-              <div class="improvements">
-                <h3 class="subsection-title">Axes d'amélioration identifiés</h3>
-                <ul class="improvement-list">
-                  <li *ngFor="let improvement of getImprovements(projet()!.titre)">{{ improvement }}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Résultats et impact -->
-        <section class="results-section">
-          <div class="section-card">
-            <h2 class="section-title">
-              <span class="title-icon">📊</span>
-              Résultats et impact
-            </h2>
-            <div class="results-content">
-              
-              <!-- Métriques -->
-              <div class="metrics-grid">
-                <div *ngFor="let metric of getMetrics(projet()!.titre)" class="metric-card">
-                  <div class="metric-value">{{ metric.value }}</div>
-                  <div class="metric-label">{{ metric.label }}</div>
-                  <div class="metric-description">{{ metric.description }}</div>
-                </div>
-              </div>
-
-              <!-- Impact et retour -->
-              <div class="impact-section">
-                <h3 class="subsection-title">Impact et retour d'expérience</h3>
-                <p class="impact-text">{{ getImpactDescription(projet()!.titre) }}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
+  
         <!-- Liens et ressources -->
         <section class="links-section" *ngIf="projet()!.github_url || projet()!.demo_url">
           <div class="section-card">
@@ -456,10 +321,16 @@ import { RouterModule } from '@angular/router';
     }
 
     .tech-badge {
-      padding: 0.75rem 1.25rem;
+      padding: 0.75rem;
       border-radius: 0.75rem;
       font-weight: 500;
       font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
     }
 
     .tech-badge.primary {
@@ -467,9 +338,28 @@ import { RouterModule } from '@angular/router';
       color: white;
     }
 
+    .tech-badge.primary:hover {
+      background: var(--orange-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
     .tech-badge.secondary {
       background: var(--violet-light);
       color: var(--violet-primary);
+    }
+
+    .tech-badge.secondary:hover {
+      background: var(--violet-primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .tech-icon {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      
     }
 
     /* Objectives */
@@ -577,12 +467,29 @@ import { RouterModule } from '@angular/router';
     }
 
     .feature-tech-badge {
-      padding: 0.25rem 0.5rem;
+      padding: 0.5rem;
       background: var(--bg-primary);
       border: 1px solid var(--border-color);
       border-radius: 0.5rem;
       font-size: 0.75rem;
       color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-tech-badge:hover {
+      background: var(--orange-light);
+      border-color: var(--orange-primary);
+      transform: translateY(-1px);
+    }
+
+    .feature-tech-icon {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
     }
 
     /* Learning */
@@ -594,19 +501,37 @@ import { RouterModule } from '@angular/router';
     }
 
     .competence-tag {
-      padding: 0.75rem 1.25rem;
+      padding: 0.75rem 1rem;
       background: var(--violet-light);
       color: var(--violet-primary);
       border-radius: 0.75rem;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .competence-tag:hover {
       background: var(--violet-primary);
       color: white;
       transform: translateY(-2px);
+    }
+
+    .competence-tag:hover .competence-icon {
+      filter: brightness(0) invert(1);
+    }
+
+    .competence-icon {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      transition: filter 0.3s ease;
+    }
+
+    .competence-name {
+      font-size: 0.9rem;
     }
 
     .learning-list,
@@ -830,10 +755,12 @@ import { RouterModule } from '@angular/router';
 })
 export class ProjetDetailComponent implements OnInit {
   private projetService = inject(ProjetService);
+  private competenceService = inject(CompetenceService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
   projet = signal<Projet | null>(null);
+  competences = this.competenceService.getCompetences;
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -867,6 +794,27 @@ export class ProjetDetailComponent implements OnInit {
     return descriptions[contexte] || contexte;
   }
 
+
+  getTechIcon(tech: string): string {
+    const competence = this.competences().find(c => c.id === tech.toLowerCase());
+    return competence?.icone || 'assets/icons/default.svg';
+  }
+
+  formatTechnology(tech: string): string {
+    const competence = this.competences().find(c => c.id === tech.toLowerCase());
+    return competence?.nom || tech;
+  }
+
+  navigateToCompetenceDetail(tech: string) {
+    const competence = this.competences().find(c => c.id === tech.toLowerCase());
+    if (competence) {
+      this.router.navigate(['/competences', competence.id]);
+    } else {
+      // Si pas de correspondance, aller à la liste des compétences
+      this.router.navigate(['/competences']);
+    }
+  }
+
   getProjectType(nomProjet: string): string {
     if (nomProjet.toLowerCase().includes('portfolio')) return 'Site web personnel';
     if (nomProjet.toLowerCase().includes('api')) return 'API REST';
@@ -882,142 +830,6 @@ export class ProjetDetailComponent implements OnInit {
       'Personnel': 'Projet individuel'
     };
     return teamSizes[contexte] || 'Non spécifié';
-  }
-
-  getTools(technologies: string[]): string[] {
-    const tools = ['Git', 'VS Code', 'npm'];
-    if (technologies.includes('Angular')) tools.push('Angular CLI', 'TypeScript');
-    if (technologies.includes('Java')) tools.push('Maven', 'IntelliJ IDEA');
-    if (technologies.includes('SQL')) tools.push('PostgreSQL', 'DBeaver');
-    return tools;
-  }
-
-  getObjectives(nomProjet: string): string[] {
-    return [
-      'Développer une solution technique robuste et scalable',
-      'Appliquer les bonnes pratiques de développement',
-      'Respecter les délais et les spécifications du projet',
-      'Acquérir de nouvelles compétences techniques',
-      'Collaborer efficacement en équipe'
-    ];
-  }
-
-  getChallenges(technologies: string[]): Array<{title: string, description: string, solution: string}> {
-    return [
-      {
-        title: 'Architecture technique',
-        description: 'Concevoir une architecture maintenir et évolutive',
-        solution: 'Adoption des patterns SOLID et Clean Architecture'
-      },
-      {
-        title: 'Performance et optimisation',
-        description: 'Assurer des performances optimales de l\'application',
-        solution: 'Mise en place de lazy loading et optimisation des requêtes'
-      },
-      {
-        title: 'Gestion de la complexité',
-        description: 'Gérer la complexité croissante du projet',
-        solution: 'Découpage en modules et composants réutilisables'
-      }
-    ];
-  }
-
-  getFeatures(nomProjet: string): Array<{icon: string, title: string, description: string, technologies: string[]}> {
-    if (nomProjet.toLowerCase().includes('portfolio')) {
-      return [
-        {
-          icon: '🎨',
-          title: 'Interface utilisateur moderne',
-          description: 'Design responsive avec thème sombre/clair et animations fluides',
-          technologies: ['Angular', 'CSS3', 'TypeScript']
-        },
-        {
-          icon: '📱',
-          title: 'Navigation intuitive',
-          description: 'Système de routing avancé avec lazy loading des composants',
-          technologies: ['Angular Router']
-        },
-        {
-          icon: '🔍',
-          title: 'Système de filtrage',
-          description: 'Filtres dynamiques pour projets et compétences',
-          technologies: ['RxJS', 'Signals']
-        }
-      ];
-    }
-    return [
-      {
-        icon: '⚙️',
-        title: 'Fonctionnalité principale',
-        description: 'Implémentation des features principales du projet',
-        technologies: ['Technologies utilisées']
-      }
-    ];
-  }
-
-  getCompetencesDeveloped(technologies: string[]): string[] {
-    const competences = ['Gestion de projet', 'Résolution de problèmes'];
-    if (technologies.includes('Angular')) competences.push('Angular', 'TypeScript');
-    if (technologies.includes('Java')) competences.push('Java');
-    if (technologies.includes('SQL')) competences.push('SQL');
-    return competences;
-  }
-
-  getPersonalLearnings(contexte: string): string[] {
-    const learnings: { [key: string]: string[] } = {
-      'IUT': [
-        'Travail en équipe sur un projet technique complexe',
-        'Application des concepts théoriques en pratique',
-        'Gestion du temps et respect des échéances académiques'
-      ],
-      'Entreprise': [
-        'Adaptation aux contraintes professionnelles',
-        'Communication avec les équipes métier',
-        'Intégration des processus qualité en entreprise'
-      ],
-      'Personnel': [
-        'Autonomie dans l\'apprentissage de nouvelles technologies',
-        'Persévérance face aux difficultés techniques',
-        'Importance de la documentation et des bonnes pratiques'
-      ]
-    };
-    return learnings[contexte] || ['Acquisition de nouvelles compétences techniques'];
-  }
-
-  getImprovements(nomProjet: string): string[] {
-    return [
-      'Améliorer la couverture de tests unitaires',
-      'Optimiser les performances de l\'application',
-      'Enrichir la documentation technique',
-      'Ajouter des fonctionnalités avancées',
-      'Améliorer l\'accessibilité de l\'interface'
-    ];
-  }
-
-  getMetrics(nomProjet: string): Array<{value: string, label: string, description: string}> {
-    if (nomProjet.toLowerCase().includes('portfolio')) {
-      return [
-        { value: '4', label: 'Pages', description: 'Pages principales du site' },
-        { value: '10+', label: 'Composants', description: 'Composants Angular créés' },
-        { value: '100%', label: 'Responsive', description: 'Adaptable à tous les écrans' },
-        { value: '3', label: 'Semaines', description: 'Durée de développement' }
-      ];
-    }
-    return [
-      { value: '100%', label: 'Fonctionnel', description: 'Objectifs atteints' },
-      { value: '0', label: 'Bugs critiques', description: 'Application stable' },
-      { value: '95%', label: 'Satisfaction', description: 'Retour positif des utilisateurs' }
-    ];
-  }
-
-  getImpactDescription(nomProjet: string): string {
-    return `Ce projet m'a permis de consolider mes compétences techniques et de développer ma capacité à mener un projet de bout en bout. L'expérience acquise contribue directement à mon évolution professionnelle et démontre ma capacité à livrer des solutions techniques de qualité dans les délais impartis.`;
-  }
-
-  navigateToCompetence(competenceName: string) {
-    // Ici on devrait faire une recherche pour trouver l'ID de la compétence
-    // Pour l'instant, on navigue vers la liste des compétences
-    this.router.navigate(['/competences']);
   }
 
   navigateToProjects() {

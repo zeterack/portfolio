@@ -2,7 +2,7 @@
   "projets": [
     {
       "id": "portfolio",
-      "titre": "Portfolio Personnel",
+      "titre": "Portfolio",
       "contexte": "Personnel",
       "date_realisation": "2025-08",
       "image": "assets/images/portfolio.png",
@@ -13,7 +13,7 @@
         "Démontrer ma maîtrise d'Angular et TypeScript",
         "Mettre en place une architecture modulaire et maintenable"
       ],
-      "technologies": ["angular", "typescript", "css", "git"],
+      "technologies": ["angular", "typescript", "css", "git","docker"],
       "soft_skills": ["resolution-problemes", "gestion-projet"],
       "defis_techniques": [
         "Mise en place d'un système de routage dynamique",
@@ -39,6 +39,145 @@
         "assets/images/portfolio-home.png",
         "assets/images/portfolio-competences.png",
         "assets/images/portfolio-projets.png"
+      ]
+    },
+    {
+      "id": "platine",
+      "titre": "PLATINE",
+      "contexte": "IUT",
+      "date_realisation": "2025-02",
+      "image": "assets/images/platine.png",
+      "description_courte": "ERP de gestion du département informatique développé en équipe de 19 personnes",
+      "description_complete": "PLATINE est un ERP destiné à faciliter la gestion du département informatique. Il centralise tous les services administratifs (EDT, notes, stages, absences, etc.) afin de fluidifier les flux d'informations. Ce projet fut réalisé par une équipe de 19 personnes.",
+      "objectifs": [
+        "Centraliser la gestion administrative du département informatique",
+        "Fluidifier les flux d'informations entre les services",
+        "Moderniser les outils de gestion existants",
+        "Coordonner une équipe de développement importante"
+      ],
+      "technologies": ["react", "express", "typescript", "docker", "git"],
+      "soft_skills": ["conduire", "collaborer", "realiser", "optimiser"],
+      "defis_techniques": [
+        "Architecture microservices avec Docker",
+        "Coordination d'une équipe de 19 développeurs",
+        "Intégration de multiples modules (EDT, notes, stages, absences)",
+        "Gestion des droits utilisateurs complexes",
+        "Synchronisation des données en temps réel"
+      ],
+      "solutions_apportees": [
+        "Mise en place d'une architecture modulaire avec React et Express",
+        "Containerisation avec Docker pour faciliter le déploiement",
+        "Utilisation de Git Flow pour la gestion collaborative du code",
+        "API RESTful avec TypeScript pour une communication robuste",
+        "Méthodologie agile avec sprints et rétrospectives régulières"
+      ],
+      "resultats": [
+        "ERP fonctionnel déployé pour le département informatique",
+        "Centralisation réussie de tous les services administratifs",
+        "Amélioration significative des flux d'informations",
+        "Expérience précieuse en gestion d'équipe et de projet",
+        "Solution scalable et maintenable"
+      ],
+      "demo_url": "",
+      "github_url": "",
+      "screenshots": [
+        "assets/images/platine-dashboard.png",
+        "assets/images/platine-edt.png",
+        "assets/images/platine-notes.png"
+      ]
+    },
+    {
+      "id": "demo-coter",
+      "titre": "Démo COTER",
+      "contexte": "Entreprise",
+      "date_realisation": "2024-11",
+      "image": "assets/images/demo-coter.png",
+      "description_courte": "Démonstration de la technologie RAG pour les demandes en mairie, présentée au COTER 2024",
+      "description_complete": "Développement d'une démonstration innovante utilisant la technologie RAG (Retrieval-Augmented Generation) dans un contexte de demandes administratives en mairie. Cette démo a été présentée lors du COTER 2024 pour illustrer les possibilités de l'IA conversationnelle dans l'administration publique.",
+      "objectifs": [
+        "Démontrer l'application pratique de la technologie RAG",
+        "Présenter une solution d'IA pour l'administration publique",
+        "Illustrer l'amélioration de l'expérience utilisateur citoyenne",
+        "Valider la faisabilité technique d'une solution IA en mairie"
+      ],
+      "technologies": ["rag", "streamlit", "python", "chromadb", "docker", "mistral-ai"],
+      "soft_skills": ["realiser", "optimiser", "collaborer"],
+      "defis_techniques": [
+        "Intégration de la technologie RAG avec des données administratives",
+        "Développement d'une interface utilisateur intuitive avec Streamlit",
+        "Gestion efficace des embeddings avec ChromaDB",
+        "Optimisation des requêtes vers l'API Mistral AI",
+        "Containerisation pour une démonstration portable"
+      ],
+      "solutions_apportees": [
+        "Architecture RAG avec pipeline de récupération et génération",
+        "Interface web responsive développée en Streamlit",
+        "Base de données vectorielle ChromaDB pour les embeddings",
+        "Intégration API Mistral AI pour la génération de réponses",
+        "Déploiement containerisé avec Docker pour la portabilité"
+      ],
+      "resultats": [
+        "Démonstration réussie présentée au COTER 2024",
+        "Validation du concept RAG en contexte administratif",
+        "Interface utilisateur fluide et intuitive",
+        "Performance optimisée des requêtes IA",
+        "Solution portable et déployable facilement"
+      ],
+      "demo_url": "",
+      "github_url": "",
+      "screenshots": [
+        "assets/images/demo-coter-interface.png",
+        "assets/images/demo-coter-rag.png",
+        "assets/images/demo-coter-resultats.png"
+      ]
+    },
+    {
+      "id": "rag-innolabs",
+      "titre": "RAG Innolabs",
+      "contexte": "Entreprise",
+      "date_realisation": "2024-09",
+      "image": "assets/images/rag-innolabs.png",
+      "description_courte": "API RAG production-ready avec traitement multi-modal et scalabilité Kubernetes",
+      "description_complete": "Développement d'une API RAG (Retrieval-Augmented Generation) production-ready permettant de traiter des documents textuels et images. Le système intègre la détection d'objets, la classification automatique de contenu et la modération de documents NSFW. Architecture conçue pour une scalabilité horizontale et verticale grâce à Kubernetes.",
+      "objectifs": [
+        "Créer une API RAG robuste et scalable pour la production",
+        "Traiter efficacement documents textuels et images",
+        "Implémenter la détection d'objets et classification automatique",
+        "Assurer la modération de contenu NSFW",
+        "Architecturer une solution hautement disponible avec Kubernetes"
+      ],
+      "technologies": ["python", "fastapi", "sqlalchemy", "alembic", "earthly", "docker", "kubernetes", "argocd", "gitlab-ci", "otlp", "paketo", "postgres", "rag", "huggingface", "pgvector", "mistral-ai", "openai-api"],
+      "soft_skills": ["realiser", "optimiser", "administrer"],
+      "defis_techniques": [
+        "Architecture microservices scalable avec Kubernetes",
+        "Traitement multi-modal (texte et images) en temps réel",
+        "Intégration de multiples APIs d'IA (Mistral, OpenAI, HuggingFace)",
+        "Gestion performante des embeddings avec pgVector",
+        "Mise en place d'une pipeline CI/CD complète avec GitLab",
+        "Monitoring et observabilité avec OpenTelemetry"
+      ],
+      "solutions_apportees": [
+        "API FastAPI haute performance avec architecture async",
+        "Base de données vectorielle PostgreSQL avec extension pgVector",
+        "Pipeline de déploiement automatisé avec ArgoCD et GitLab CI",
+        "Containerisation optimisée avec Paketo Buildpacks",
+        "Migrations de base de données gérées avec Alembic",
+        "Monitoring complet avec protocole OTLP et OpenTelemetry"
+      ],
+      "resultats": [
+        "API RAG production-ready déployée en entreprise",
+        "Scalabilité horizontale et verticale validée",
+        "Traitement efficace de documents multi-modaux",
+        "Pipeline CI/CD entièrement automatisée",
+        "Monitoring et observabilité complets",
+        "Architecture résiliente et hautement disponible"
+      ],
+      "demo_url": "",
+      "github_url": "",
+      "screenshots": [
+        "assets/images/rag-innolabs-api.png",
+        "assets/images/rag-innolabs-kubernetes.png",
+        "assets/images/rag-innolabs-monitoring.png"
       ]
     }
   ]

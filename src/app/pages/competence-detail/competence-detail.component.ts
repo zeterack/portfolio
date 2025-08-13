@@ -1,6 +1,7 @@
 import { Component, signal, computed, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompetenceService } from '../../services/competence.service';
+import { ProjetService } from '../../services/projet.service';
 import { Competence } from '../../models/competence.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -64,28 +65,47 @@ import { RouterModule } from '@angular/router';
           <div class="section-card">
             <h2 class="section-title">
               <span class="title-icon">🚀</span>
-              Projets utilisant cette compétence
+              Projets utilisant cette compétence ({{ relatedProjects().length }})
             </h2>
             <div class="projects-grid">
               <div *ngFor="let project of relatedProjects()" 
                    class="project-card"
                    (click)="navigateToProject(project.id)">
                 <div class="project-header">
-                  <h3 class="project-title">{{ project.nom }}</h3>
+                  <h3 class="project-title">{{ project.titre }}</h3>
                   <span class="project-context" 
                         [class]="'context-' + project.contexte.toLowerCase()">
                     {{ project.contexte }}
                   </span>
                 </div>
-                <p class="project-description">{{ project.description | slice:0:150 }}...</p>
+                <p class="project-description">{{ project.description_courte }}</p>
                 <div class="project-technologies">
                   <span *ngFor="let tech of project.technologies" 
                         class="tech-badge"
-                        [class.highlighted]="tech === competence()!.nom">
+                        [class.highlighted]="tech === competence()!.id">
                     {{ tech }}
                   </span>
                 </div>
+                <div class="project-date">
+                  <span class="date-label">📅</span>
+                  <span class="date-value">{{ project.date_realisation }}</span>
+                </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Message si aucun projet -->
+        <section class="no-projects-section" *ngIf="relatedProjects().length === 0">
+          <div class="section-card">
+            <h2 class="section-title">
+              <span class="title-icon">🚀</span>
+              Projets utilisant cette compétence
+            </h2>
+            <div class="no-projects-message">
+              <div class="no-projects-icon">📁</div>
+              <h3>Aucun projet associé</h3>
+              <p>Cette compétence n'est pas encore utilisée dans mes projets référencés ou sera appliquée dans de futurs projets.</p>
             </div>
           </div>
         </section>
@@ -446,6 +466,49 @@ import { RouterModule } from '@angular/router';
       border-color: var(--orange-primary);
     }
 
+    .project-date {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .date-label {
+      font-size: 0.875rem;
+    }
+
+    .date-value {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .no-projects-message {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-secondary);
+    }
+
+    .no-projects-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .no-projects-message h3 {
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+    }
+
+    .no-projects-message p {
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
     /* Timeline */
     .timeline {
       position: relative;
@@ -710,6 +773,7 @@ import { RouterModule } from '@angular/router';
 })
 export class CompetenceDetailComponent implements OnInit {
   private competenceService = inject(CompetenceService);
+  private projetService = inject(ProjetService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
@@ -718,16 +782,8 @@ export class CompetenceDetailComponent implements OnInit {
     const comp = this.competence();
     if (!comp) return [];
     
-    // Simulation de projets liés (à remplacer par un service réel)
-    return [
-      {
-        id: '1',
-        nom: "Portfolio Personnel",
-        description: "Développement de ce portfolio avec Angular 18, intégrant des fonctionnalités avancées de routing, services et composants standalone",
-        contexte: "Personnel",
-        technologies: comp.type === 'technique' ? [comp.nom, "TypeScript", "CSS3"] : ["Communication", "Gestion de projet"]
-      }
-    ].filter(p => p.technologies.includes(comp.nom));
+    // Utilisation du service ProjetService pour récupérer les vrais projets
+    return this.projetService.getProjetsByTechnologie(comp.id);
   });
 
   ngOnInit() {
