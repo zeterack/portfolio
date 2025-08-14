@@ -15,7 +15,7 @@ import { ProjetService } from '../../services/projet.service';
               <span class="highlight">Lucas DANIEL</span>
             </h1>
             <p class="hero-subtitle">
-              Développeur Full Stack spécialisée IA en alternance
+              Développeur Full Stack spécialisé IA en alternance
             </p>
             <p class="hero-description">
               Passionné par l'intelligence artificielle et le développement informatique, je crée des applications performantes 
