@@ -6,14 +6,14 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install all dependencies (including devDependencies for build)
+RUN npm ci
 
 # Copy source code
 COPY . .
 
-# Build the application
-RUN npm run build --prod
+# Build the application for production
+RUN npm run build
 
 # Stage 2: Serve the application with Nginx
 FROM nginx:alpine
@@ -22,7 +22,7 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy built application from builder stage
-COPY --from=builder /app/dist/portfolio /usr/share/nginx/html
+COPY --from=builder /app/dist/portfolio/browser /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
