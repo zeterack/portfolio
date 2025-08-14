@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  # Traefik reverse proxy
+  traefik:
+    image: traefik:v3.0
+    container_name: traefik
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080" # Traefik dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik:/etc/traefik
+      - ./certs:/etc/ssl/certs
+    command:
+      # API and dashboard
+      - --api.dashboard=true
+      - --api.debug=true
+      # Docker provider
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      # Entrypoints
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      # Certificate resolver (Let's Encrypt)
+      - --certificatesresolvers.letsencrypt.acme.email=zeterack@gmail.com
+      - --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme.json
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge=true
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web
+      # Global redirect to https
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+    labels:
+      # Dashboard
+      - traefik.enable=true
+      - traefik.http.routers.traefik.rule=Host(`traefik.zeterack.fr`)
+      - traefik.http.routers.traefik.entrypoints=websecure
+      - traefik.http.routers.traefik.tls.certresolver=letsencrypt
+      - traefik.http.routers.traefik.service=api@internal
+      # Basic auth for dashboard (admin:admin)
+      - traefik.http.routers.traefik.middlewares=auth
+      - traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$10$$3Z3Z3Z3Z3Z3Z3Z3Z3Z3Z3u
+
+  # Portfolio application
+  portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portfolio
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      # HTTP router (will redirect to HTTPS)
+      - traefik.http.routers.portfolio-http.rule=Host(`portefolio.zeterack.fr`)
+      - traefik.http.routers.portfolio-http.entrypoints=web
+      # HTTPS router
+      - traefik.http.routers.portfolio.rule=Host(`portefolio.zeterack.fr`)
+      - traefik.http.routers.portfolio.entrypoints=websecure
+      - traefik.http.routers.portfolio.tls.certresolver=letsencrypt
+      - traefik.http.services.portfolio.loadbalancer.server.port=80
+      # Security headers middleware
+      - traefik.http.routers.portfolio.middlewares=security-headers
+      - traefik.http.middlewares.security-headers.headers.customRequestHeaders.X-Forwarded-Proto=https
+      - traefik.http.middlewares.security-headers.headers.customResponseHeaders.X-Frame-Options=DENY
+      - traefik.http.middlewares.security-headers.headers.customResponseHeaders.X-Content-Type-Options=nosniff
+
+  # Optional: Watchtower for automatic updates
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=300 # Check every 5 minutes
+      - WATCHTOWER_INCLUDE_STOPPED=true
+    labels:
+      - traefik.enable=false
+
+networks:
+  default:
+    name: traefik-network
